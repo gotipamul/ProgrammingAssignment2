@@ -1,3 +1,10 @@
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
+##This function resets the variables x and inv.
+##It passes descriptions of what should be printed when 
+##x$get, x$setinv and x$getinv are executed
 library(MASS)
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL
@@ -17,6 +24,10 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 ##
 ## Same here, changed "mean" to "solve" and "m" to "s"
+## Write a short comment describing this function
+##If Inv is not null, then the value that is in Inv will be used
+##If null, caclulations need to be run (as per the functions that have been 
+##passed to x$get and x$inverse in the MakeCachematrix function
 cacheSolve <- function(x, ...) {
   inv <- x$getinv()
   if(!is.null(inv)) {
