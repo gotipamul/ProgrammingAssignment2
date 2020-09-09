@@ -1,41 +1,36 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Caching the Inverse of a Matrix
+## Below functions create a special object that stores a matrix and caches its inverse
 
-## Write a short comment describing this function
-##This function resets the variables x and inv.
-##It passes descriptions of what should be printed when 
-##x$get, x$setinv and x$getinv are executed
-library(MASS)
+## Below function creates a special matrix object that can cache its inverse
+
 makeCacheMatrix <- function(x = matrix()) {
-  inv <- NULL
-  set <- function(y) {
+  inve <- NULL
+  set <- function(y){
     x <<- y
-    inv <<- NULL
+    inve <<- NULL
   }
   get <- function()x
-  setinv <- function(inverse) inv <<- inverse
-  getinv <- function() {
-    inver<-ginv(x)
-    inver%*%x
-  }
-  list(set = set, get = get,
-       setinv = setinv,
-       getinv = getinv)
+  setInverse <- function(inverse) inve <<- inverse
+  getInverse <- function() inve 
+  list(set = set, 
+       get = get, 
+       setInverse = setInverse, 
+       getInverse = getInverse
+  )
+  
 }
-##
-## Same here, changed "mean" to "solve" and "m" to "s"
-## Write a short comment describing this function
-##If Inv is not null, then the value that is in Inv will be used
-##If null, caclulations need to be run (as per the functions that have been 
-##passed to x$get and x$inverse in the MakeCachematrix function
+
+
+## This function computes the inverse of the special "matrix" created by makeCacheMatrix above
 cacheSolve <- function(x, ...) {
-  inv <- x$getinv()
-  if(!is.null(inv)) {
-    message("getting inversed matrix")
-    return(inv)
+  ## Return a matrix that is the inverse of 'x'
+  inve <- x$getInverse()
+  if(!is.null(inve)){
+    message("getting cached data")
+    return(inve)
   }
-  data <- x$get()
-  inv <- solve(data, ...)
-  x$setinv(inv)
-  inv
+  mat <- x$get()
+  inve <- solve(mat,...)
+  x$setInverse(inve)
+  inve
 }
